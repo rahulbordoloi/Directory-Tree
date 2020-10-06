@@ -1,0 +1,15 @@
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+MANIFEST.in
+README.md
+setup.py
+Test/Main Directory/letseee.txt
+Test/Main Directory/Directory 1/Directory 2/Say World.txt
+Test/Main Directory/Directory 1/Directory 2/Directory 3/Directory 4/Hello World.txt
+Test/Main Directory/Directory A/Hmm.txt
+src/directory_tree.py
+src/directory_tree.egg-info/PKG-INFO
+src/directory_tree.egg-info/SOURCES.txt
+src/directory_tree.egg-info/dependency_links.txt
+src/directory_tree.egg-info/requires.txt
+src/directory_tree.egg-info/top_level.txt
