@@ -3,6 +3,7 @@ from pathlib import Path
 import os
 import platform
 
+
 # Class Tree Path
 class directory_path:
 
@@ -94,7 +95,7 @@ class directory_path:
 
 
 # Display Function to Print Directory Tree
-def display_tree(dir_path = None):
+def display_tree(dir_path = '', string_rep = False):
 
     # Check for Default Argument
     if dir_path:
@@ -102,13 +103,26 @@ def display_tree(dir_path = None):
     else:
         dir_path = Path(os.getcwd())
 
-    print(f'''
+    # Check for String Representation
+    if string_rep:
+
+        # String Representation [True]
+        stringOutput = str()
+        paths = directory_path.build_tree(dir_path)
+        for path in paths:
+            stringOutput += path.displayPath() + "\n"
+        return stringOutput
+
+    else:
+        # Just Console Print
+        print(f'''
 $ Operating System : {platform.system()}
 $ Path : {Path(dir_path)}
 
 {"*" * 15} Directory Tree {"*" * 15}
 ''')
 
-    paths = directory_path.build_tree(dir_path)
-    for path in paths:
-        print(path.displayPath())
+        paths = directory_path.build_tree(dir_path)
+        for path in paths:
+            print(path.displayPath())
+
