@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 setup(
 
     name = 'directory_tree',
-    version = '0.0.1',
+    version = '0.0.2',
     description = 'Utility Package that displays out the Tree Structure of a Particular Directory.',
     url = "https://github.com/rahulbordoloi/Directory-Tree/",
     author = "Rahul Bordoloi",
@@ -16,9 +16,11 @@ setup(
     package_dir = {'': 'src'},
 
     classifiers = [
+        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Operating System :: OS Independent",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Topic :: Utilities",

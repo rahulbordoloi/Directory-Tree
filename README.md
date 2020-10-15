@@ -40,6 +40,15 @@ pip install -e .
 
 ## Usage
 
+<h4> Arguments </h4>
+
+
+| __Parameters__ | __Description__ |
+|    ---         |       ---       |
+| __dir_path__ | Refers to the Directory Path of Operation. By default, refers to the Current Working Directory. |
+| __string_rep__ | Refers to whether you just want the direct output or a string representation of the same. |
+
+
 Run this script in order to print out the tree structure of a user-defined directory!
 
 ```python
@@ -55,7 +64,7 @@ if __name__ == '__main__':
 
 ## Output
 
-1. For <i>Current Working Directory</i> [DEFAULT]
+1. For <i>Current Working Directory</i> [DEFAULT] [String Representation = `False`]
 
 ```python
 >>> from directory_tree import display_tree
@@ -81,11 +90,12 @@ Main Directory/
 
 ```
 
-2. For <i>User Specified Directory</i> [Argument]
+2. For <i>User Specified Directory</i> [Argument] [String Representation = `True`]
 
 ```python
 >>> from directory_tree import display_tree
->>> display_tree('C:\Personal\Work\Directory-Tree\Test\Main Directory')
+>>> stringRepresentation = display_tree('C:\Personal\Work\Directory-Tree\Test\Main Directory', string_rep = True)
+>>> print(stringRepresentation)
 
 $ Operating System : Windows
 $ Path : C:\Personal\Work\Directory-Tree\Test\Main Directory
