@@ -39,7 +39,7 @@ class directory_path:
 
     # Building the Tree [Directories-Nodes]
     @classmethod
-    def build_tree(cls, root, parent = None, is_last = False, criteria = None):
+    def build_tree(cls, root, parent = None, is_last = False, criteria = None, max_depth = float("inf")):
 
         ## Checking out for Root Directory for each Iteration
         root = Path(str(root))
@@ -59,11 +59,12 @@ class directory_path:
         countNodes = 1
         for path in children:
             is_last = countNodes == len(children)
-            if path.is_dir():
+            if path.is_dir() and root_Directory_Display.depth + 1 < max_depth:
                 yield from cls.build_tree(path,
                                          parent = root_Directory_Display,
                                          is_last = is_last,
-                                         criteria = criteria)
+                                         criteria = criteria,
+                                         max_depth = max_depth)
             else:
                 yield cls(path, root_Directory_Display, is_last)
             countNodes += 1
@@ -95,7 +96,7 @@ class directory_path:
 
 
 # Display Function to Print Directory Tree
-def display_tree(dir_path = '', string_rep = False):
+def display_tree(dir_path = '', string_rep = False, max_depth=float("inf")):
 
     # Check for Default Argument
     if dir_path:
@@ -108,7 +109,7 @@ def display_tree(dir_path = '', string_rep = False):
 
         # String Representation [True]
         stringOutput = str()
-        paths = directory_path.build_tree(dir_path)
+        paths = directory_path.build_tree(dir_path, max_depth = max_depth)
         for path in paths:
             stringOutput += path.displayPath() + "\n"
         return stringOutput
@@ -122,7 +123,7 @@ $ Path : {Path(dir_path)}
 {"*" * 15} Directory Tree {"*" * 15}
 ''')
 
-        paths = directory_path.build_tree(dir_path)
+        paths = directory_path.build_tree(dir_path, max_depth = max_depth)
         for path in paths:
             print(path.displayPath())
 
