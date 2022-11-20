@@ -96,7 +96,7 @@ class directory_path:
 
 
 # Display Function to Print Directory Tree
-def display_tree(dir_path = '', string_rep = False, max_depth=float("inf")):
+def display_tree(dir_path = '', string_rep = False, max_depth=float("inf"), header=False):
 
     # Check for Default Argument
     if dir_path:
@@ -116,7 +116,8 @@ def display_tree(dir_path = '', string_rep = False, max_depth=float("inf")):
 
     else:
         # Just Console Print
-        print(f'''
+        if header:
+            print(f'''
 $ Operating System : {platform.system()}
 $ Path : {Path(dir_path)}
 
