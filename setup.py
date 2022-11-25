@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 setup(
 
     name = 'directory_tree',
-    version = '0.0.3',
+    version = '0.0.4',
     description = 'Utility Package that displays out the Tree Structure of a Particular Directory.',
     url = "https://github.com/rahulbordoloi/Directory-Tree/",
     author = "Rahul Bordoloi",

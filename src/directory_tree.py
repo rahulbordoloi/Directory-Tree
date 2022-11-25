@@ -39,11 +39,13 @@ class directory_path:
 
     # Building the Tree [Directories-Nodes]
     @classmethod
-    def build_tree(cls, root, parent = None, is_last = False, criteria = None, max_depth = float("inf")):
+    def build_tree(cls, root, parent = None, is_last = False, criteria = None,
+            max_depth = float("inf"), show_hidden = False):
 
         ## Checking out for Root Directory for each Iteration
         root = Path(str(root))
-        criteria = criteria or cls._default_criteria_
+        default_criteria = cls._default_criteria_ if not show_hidden else cls._no_filtering_
+        criteria = criteria or default_criteria
 
         # Yielding [Returning] Root Directory Name
         root_Directory_Display = cls(root, parent, is_last)
@@ -72,6 +74,11 @@ class directory_path:
     # Check Condition for Root Directory
     @classmethod
     def _default_criteria_(cls, path):
+        return not path.stem.startswith(".")
+
+    # Check Condition for Root Directory
+    @classmethod
+    def _no_filtering_(cls, path):
         return True
 
     # Displaying the Tree Path [Directories-Nodes]
@@ -96,7 +103,8 @@ class directory_path:
 
 
 # Display Function to Print Directory Tree
-def display_tree(dir_path = '', string_rep = False, max_depth=float("inf"), header=False):
+def display_tree(dir_path = '', string_rep = False,
+        header=False, max_depth=float("inf"), show_hidden=False):
 
     # Check for Default Argument
     if dir_path:
@@ -109,7 +117,8 @@ def display_tree(dir_path = '', string_rep = False, max_depth=float("inf"), head
 
         # String Representation [True]
         stringOutput = str()
-        paths = directory_path.build_tree(dir_path, max_depth = max_depth)
+        paths = directory_path.build_tree(dir_path,
+            max_depth = max_depth, show_hidden = show_hidden)
         for path in paths:
             stringOutput += path.displayPath() + "\n"
         return stringOutput
@@ -124,7 +133,8 @@ $ Path : {Path(dir_path)}
 {"*" * 15} Directory Tree {"*" * 15}
 ''')
 
-        paths = directory_path.build_tree(dir_path, max_depth = max_depth)
+        paths = directory_path.build_tree(dir_path,
+            max_depth = max_depth, show_hidden = show_hidden)
         for path in paths:
             print(path.displayPath())
 
