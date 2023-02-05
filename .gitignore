@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Custom
+/src/directory_tree.egg-info/
+*-py3-none-any.whl
+/.idea/
+/build/
