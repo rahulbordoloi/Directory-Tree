@@ -10,29 +10,29 @@
 
 ## About 
 
-Want to display your project/current working directory as a neat tree? No Worries!
+Want to Display your Project/Current Working Directory as a Neat Tree? No Worries!
 
-`Directory Tree` is a simple python utility package that displays out the Tree Structure of a user-defined directory.
+`Directory Tree` is a simple python utility package that displays out the Tree Structure of a User Defined Directory.
 
 <b><i> Currently Available for All Platforms.  </i></b>
 
 ## Installation
 
-Run the following command on your terminal to install `directory_tree`: 
+Run the Following Command on your Terminal to Install `directory_tree`: 
 
-1 .  Installing the package using `pip`:
-```python
+1 .  Installing the Package using `pip`:
+```bash
 pip install directory_tree
 ```
 OR
 
-```python
+```bash
 pip3 install directory_tree
 ```
 
-2 . Cloning the repository:
+2 . Cloning the Repository:
 
-```
+```bash
 git clone https://github.com/rahulbordoloi/Directory-Tree/
 cd Directory-Tree
 pip install -e .
@@ -40,16 +40,24 @@ pip install -e .
 
 ## Usage
 
-<h4> Arguments </h4>
+<h4> Function Signature </h4>
+
+```python
+display_tree(dir_path: str = '', string_rep: bool = False, header: bool = False, max_depth: float = float("inf"), show_hidden: bool = False)
+```
+
+<h4> Arguments Description </h4>
+
+| __Parameters__ | __Description__                                                                                                 |
+|    ---         |-----------------------------------------------------------------------------------------------------------------|
+| __dir_path__ | Root Path of Operation. By Default, Refers to the Current Working Directory.                                    |
+| __string_rep__ | Boolean Flag for Direct Console Output or a String Return of the Same. By Default, It Gives out Console Output. |
+| __header__ | Boolean Flag for Displaying [OS & Directory Path] Info in the Console. Not Applicable if `string_rep=True`.     |
+| __max_depth__ | Max Depth of the Directory Tree. By Default, It goes upto the Deepest Directory/File.                           |
+| __show_hidden__ | Boolean Flag for Returning/Displaying Hidden Files/Directories if Value Set to `True`.               |
 
 
-| __Parameters__ | __Description__ |
-|    ---         |       ---       |
-| __dir_path__ | Refers to the Directory Path of Operation. By default, refers to the Current Working Directory. |
-| __string_rep__ | Refers to whether you just want the direct output or a string representation of the same. |
-
-
-Run this script in order to print out the tree structure of a user-defined directory!
+Run this Script in Order to Print out the Tree Structure of a User-Defined Directory `DirectoryPath`!
 
 ```python
 # Importing Libraries
@@ -57,65 +65,47 @@ from directory_tree import display_tree
 
 # Main Method
 if __name__ == '__main__':
-    display_tree(directory_path)
+    display_tree(DirectoryPath)
 ```
 
-*   Here by default, the `directory_path` is the current working directory (CWD) unless specified by the user.
+*   Here by default, the `DirectoryPath` is the current working directory (CWD) unless specified by the user.
 
-## Output
+## Output Examples
 
-1. For <i>Current Working Directory</i> [DEFAULT] [String Representation = `False`]
+Sample Directory Tree -
+
+![SampleDirectoryTree.png](images/SampleDirectoryTree.png)
+
+NOTE - Here, `letseee.txt` (File) and `Directory 4/` (Directory) are **HIDDEN** in Nature.
+
+1. For <i>Current Working Directory</i> with Argument [Header Info = `False`]
 
 ```python
->>> from directory_tree import display_tree
->>> display_tree()
-
-$ Operating System : Windows
-$ Path : C:\Personal\Work\Directory-Tree\Test\Main Directory
-
-*************** Directory Tree ***************
-
-Main Directory/
-├── Directory 1/
-│   └── Directory 2/
-│       ├── Directory 3/
-│       │   └── Directory 4/
-│       │       └── Hello World.txt
-│       └── Say World.txt
-├── Directory A/
-│   └── Hmm.txt
-├── directory-tree-print.cpp
-├── letseee.txt
-└── printTree.exe
-
+from directory_tree import display_tree
+display_tree(header=True)
 ```
 
-2. For <i>User Specified Directory</i> [Argument] [String Representation = `True`]
+![CWDwithHeader.png](images/CWDwithHeader.png)
+
+2. For <i>User Specified Directory</i> with Arguments [String Representation = `True`, Show Hidden Entities = `True`]
 
 ```python
->>> from directory_tree import display_tree
->>> stringRepresentation = display_tree('C:\Personal\Work\Directory-Tree\Test\Main Directory', string_rep = True)
->>> print(stringRepresentation)
-
-$ Operating System : Windows
-$ Path : C:\Personal\Work\Directory-Tree\Test\Main Directory
-
-*************** Directory Tree ***************
-
-Main Directory/
-├── Directory 1/
-│   └── Directory 2/
-│       ├── Directory 3/
-│       │   └── Directory 4/
-│       │       └── Hello World.txt
-│       └── Say World.txt
-├── Directory A/
-│   └── Hmm.txt
-├── directory-tree-print.cpp
-├── letseee.txt
-└── printTree.exe
-
+from directory_tree import display_tree
+customPath = 'C:\Personal\Work\Directory-Tree\Test\Main Directory'
+stringRepresentation = display_tree(customPath, string_rep=True, show_hidden=True)
+print(stringRepresentation)
 ```
+
+![UserSpecifiedDirectoryStrRepShowHidden.png](images/UserSpecifiedDirectoryStrRepShowHidden.png)
+
+3. For <i>Current Working Directory</i> with Argument [Max Depth = `2`]
+
+```python
+from directory_tree import display_tree
+display_tree(max_depth=2)
+```
+
+![UserSpecifiedDirectoryMaxDep.png](images/UserSpecifiedDirectoryMaxDep.png)
 
 ## Developing `Directory Tree`
 
@@ -125,12 +115,12 @@ To install `directory_tree`, along with the tools you need to develop and run te
 $ pip install -e .[dev]
 ```
 
-## Security & Bugs
+## Security & Probable Bugs
 
 *   `Directory Tree` uses recursion. It will raise a `RecursionError` on really deep directory trees.
 *   As the tree is lazily evaluated, it should behave well on really wide directory trees. Immediate children of a given directory are not lazily evaluated, though. It would be prompted to the last.
-*   Currently `Directory Tree` doesn't support the functionality of ignoring files/directories in a particular path, so will print every files-directories present in the given path.
 *   If you're a Windows user, it is always advised to use `\\` instead of `\` in the address as using `\` might catchup escape sequences and corrupt the address string.
+
 ## Contact Author
 
 Name : __Rahul Bordoloi__ <br>

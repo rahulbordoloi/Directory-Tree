@@ -1,8 +1,11 @@
+# Importing Packages
 from setuptools import setup
 
+# Reading README and Storing Info as `Long Description`
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+# Configuring Setup
 setup(
 
     name = 'directory_tree',
@@ -35,7 +38,7 @@ setup(
     long_description_content_type = "text/markdown",
 
     extras_require = {
-        "dev" : [
+        "dev": [
             "pytest >= 3.7",
         ],
     },
