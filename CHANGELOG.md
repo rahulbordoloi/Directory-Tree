@@ -10,3 +10,10 @@ Change Log
 -------------------
 -  Second Release
 *  Added String Representation for GUI Log.
+
+0.0.3 (05/02/2022)
+-------------------
+-  Third Release
+*  Defining Directory Tree Depth.
+*  Allows Hidden Entities [Files/Directories] to be Ignored.
+*  Allows User to Hide the Header [OS / Path Info].
