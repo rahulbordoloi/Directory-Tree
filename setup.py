@@ -9,8 +9,8 @@ with open("README.md", "r") as fh:
 setup(
 
     name = 'directory_tree',
-    version = '0.0.3',
-    description = 'Utility Package that displays out the Tree Structure of a Particular Directory.',
+    version = '0.0.3.1',
+    description = 'Utility Package that Displays out the Tree Structure of a Particular Directory.',
     url = "https://github.com/rahulbordoloi/Directory-Tree/",
     author = "Rahul Bordoloi",
     author_email = "rahulbordoloi24@gmail.com",
@@ -24,6 +24,8 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Operating System :: OS Independent",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Topic :: Utilities",

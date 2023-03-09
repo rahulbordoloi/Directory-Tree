@@ -74,7 +74,7 @@ if __name__ == '__main__':
 
 Sample Directory Tree -
 
-![SampleDirectoryTree.png](images/SampleDirectoryTree.png)
+![SampleDirectoryTree.png](https://github.com/rahulbordoloi/Directory-Tree/blob/main/images/SampleDirectoryTree.png?raw=true)
 
 NOTE - Here, `letseee.txt` (File) and `Directory 4/` (Directory) are **HIDDEN** in Nature.
 
@@ -85,18 +85,18 @@ from directory_tree import display_tree
 display_tree(header=True)
 ```
 
-![CWDwithHeader.png](images/CWDwithHeader.png)
+![CWDwithHeader.png](https://github.com/rahulbordoloi/Directory-Tree/blob/main/images/CWDwithHeader.png?raw=true)
 
 2. For <i>User Specified Directory</i> with Arguments [String Representation = `True`, Show Hidden Entities = `True`]
 
 ```python
 from directory_tree import display_tree
-customPath = 'C:\Personal\Work\Directory-Tree\Test\Main Directory'
+customPath = 'D:\Work\Python Packages Maintainence\Directory-Tree\Test\Main Directory'
 stringRepresentation = display_tree(customPath, string_rep=True, show_hidden=True)
 print(stringRepresentation)
 ```
 
-![UserSpecifiedDirectoryStrRepShowHidden.png](images/UserSpecifiedDirectoryStrRepShowHidden.png)
+![UserSpecifiedDirectoryStrRepShowHidden.png](https://github.com/rahulbordoloi/Directory-Tree/blob/main/images/UserSpecifiedDirectoryStrRepShowHidden.png?raw=true)
 
 3. For <i>Current Working Directory</i> with Argument [Max Depth = `2`]
 
@@ -105,7 +105,8 @@ from directory_tree import display_tree
 display_tree(max_depth=2)
 ```
 
-![UserSpecifiedDirectoryMaxDep.png](images/UserSpecifiedDirectoryMaxDep.png)
+![UserSpecifiedDirectoryMaxDep.png](https://github.com/rahulbordoloi/Directory-Tree/blob/main/images/UserSpecifiedDirectoryMaxDep.png?raw=true)
+
 
 ## Developing `Directory Tree`
 
@@ -129,3 +130,4 @@ Email : rahulbordoloi24@gmail.com <br>
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/rahulbordoloi/)
+

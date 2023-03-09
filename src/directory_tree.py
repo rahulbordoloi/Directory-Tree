@@ -39,19 +39,17 @@ class DirectoryPath:
 
     # Building the Tree [Directories-Nodes]
     @classmethod
-    def build_tree(cls, root, parent=None, is_last=False, criteria=None, max_depth=float("inf"), show_hidden=False):
+    def build_tree(cls, root, parent=None, is_last=False, max_depth=float("inf"), show_hidden=False):
 
         # Checking out for Root Directory for Each Iteration
         root = Path(root)
-        criteria = criteria or cls._default_criteria_
 
         # Yielding [Returning] Root Directory Name
         rootDirectoryDisplay = cls(root, parent, is_last)
         yield rootDirectoryDisplay
 
         ## Taking out the List of Children [Nodes] Files/Directories
-        children = sorted(list(entityPath for entityPath in root.iterdir() if criteria(entityPath)),
-                          key=lambda s: str(s).lower())
+        children = sorted(list(entityPath for entityPath in root.iterdir()), key=lambda s: str(s).lower())
 
         ## Checking for Hidden Entities Flag
         if not show_hidden:
@@ -65,22 +63,19 @@ class DirectoryPath:
                 yield from cls.build_tree(path,
                                           parent=rootDirectoryDisplay,
                                           is_last=is_last,
-                                          criteria=criteria,
                                           max_depth=max_depth,
                                           show_hidden=show_hidden)
             else:
                 yield cls(path, rootDirectoryDisplay, is_last)
             countNodes += 1
 
-    # Check Condition for Root Directory
-    @classmethod
-    def _default_criteria_(cls, path):
-        return not path.stem.startswith(".")
-
     # Check Condition for Hidden Entities [Files / Directories]
     @classmethod
-    def _hidden_files_filtering_(cls, path):
-        return bool(os.stat(path).st_file_attributes & stat.FILE_ATTRIBUTE_HIDDEN)
+    def _hidden_files_filtering_(cls, path) -> bool:
+        try:
+            return bool(os.stat(path).st_file_attributes & stat.FILE_ATTRIBUTE_HIDDEN)
+        except:
+            return path.stem.startswith(".")
 
     # Displaying the Tree Path [Directories-Nodes]
     def displayPath(self):
@@ -89,6 +84,7 @@ class DirectoryPath:
         if self.parent is None:
             return self.displayName
 
+        # Checking for File-Name Prefix in Tree
         filenamePrefix = (
             DirectoryPath.display_Node_Prefix_Last if self.is_last else DirectoryPath.display_Node_Prefix_Middle)
 
