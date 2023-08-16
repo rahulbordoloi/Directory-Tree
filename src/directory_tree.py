@@ -8,7 +8,6 @@ import stat
 class DirectoryPath:
     """
     Python Utility Package that Displays out the Tree Structure of a Particular Directory.
-    @author : rahulbordoloi
     """
 
     # Class Variables [Directions]
@@ -54,8 +53,8 @@ class DirectoryPath:
         if not show_hidden:
             children = [entityPath for entityPath in children if not cls._hidden_files_filtering_(entityPath)]
 
-        # Filter out directories specified in the ignore_dirs list
-        children = [entityPath for entityPath in children if entityPath.name not in ignore_dirs]
+        # Filter out directories specified in the ignore_dirs list (support for directories starting with a dot)
+        children = [entityPath for entityPath in children if not any(ign in str(entityPath) for ign in ignore_dirs)]
 
         ## Build the Tree
         countNodes = 1
@@ -152,5 +151,3 @@ $ Path : {Path(dir_path)}
 
     except Exception as expMessage:
         print(f"Exception Occurred! Failed to Generate Tree:: {expMessage}")
-
-
