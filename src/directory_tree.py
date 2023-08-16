@@ -4,7 +4,6 @@ import os
 import platform
 import stat
 
-
 # Class for Directory Tree Path
 class DirectoryPath:
     """
@@ -39,7 +38,7 @@ class DirectoryPath:
 
     # Building the Tree [Directories-Nodes]
     @classmethod
-    def build_tree(cls, root, parent=None, is_last=False, max_depth=float("inf"), show_hidden=False):
+    def build_tree(cls, root, parent=None, is_last=False, max_depth=float("inf"), show_hidden=False, ignore_dirs=[]):
 
         # Checking out for Root Directory for Each Iteration
         root = Path(root)
@@ -55,6 +54,9 @@ class DirectoryPath:
         if not show_hidden:
             children = [entityPath for entityPath in children if not cls._hidden_files_filtering_(entityPath)]
 
+        # Filter out directories specified in the ignore_dirs list
+        children = [entityPath for entityPath in children if entityPath.name not in ignore_dirs]
+
         ## Build the Tree
         countNodes = 1
         for path in children:
@@ -64,7 +66,8 @@ class DirectoryPath:
                                           parent=rootDirectoryDisplay,
                                           is_last=is_last,
                                           max_depth=max_depth,
-                                          show_hidden=show_hidden)
+                                          show_hidden=show_hidden,
+                                          ignore_dirs=ignore_dirs)
             else:
                 yield cls(path, rootDirectoryDisplay, is_last)
             countNodes += 1
@@ -103,13 +106,14 @@ class DirectoryPath:
 
 # Display Function to Print Directory Tree
 def display_tree(dir_path: str = '', string_rep: bool = False, header: bool = False, max_depth: float = float("inf"),
-                 show_hidden: bool = False):
+                 show_hidden: bool = False, ignore_dirs: list = []):
     """
     :param dir_path: Root Path of Operation. By Default, Refers to the Current Working Directory
     :param string_rep: Boolean Flag for Direct Console Output or a String Return of the Same. By Default, It Gives out Console Output
     :param header: Boolean Flag for Displaying [OS & Directory Path] Info in the Console. Not Applicable if `string_rep=True`
     :param max_depth: Max Depth of the Directory Tree. By Default, It goes upto the Deepest Directory/File
     :param show_hidden: Boolean Flag for Returning/Displaying Hidden Files/Directories if Value Set to `True`
+    :param ignore_dirs: List of directory names to ignore
     :return: None if `string_rep=False` else (str)ing Representation of the Tree
     """
 
@@ -122,7 +126,7 @@ def display_tree(dir_path: str = '', string_rep: bool = False, header: bool = Fa
             dir_path = Path(os.getcwd())
 
         # Build Directory Tree
-        paths = DirectoryPath.build_tree(dir_path, max_depth=max_depth, show_hidden=show_hidden)
+        paths = DirectoryPath.build_tree(dir_path, max_depth=max_depth, show_hidden=show_hidden, ignore_dirs=ignore_dirs)
 
         # Check for String Representation
         if string_rep:
@@ -148,4 +152,5 @@ $ Path : {Path(dir_path)}
 
     except Exception as expMessage:
         print(f"Exception Occurred! Failed to Generate Tree:: {expMessage}")
+
 
