@@ -1,3 +1,4 @@
+# Importing Libraries
 from pathlib import Path
 import os
 import platform
@@ -6,6 +7,7 @@ import stat
 class DirectoryPath:
     """
     Python Utility Package that Displays out the Tree Structure of a Particular Directory.
+    @author : rahulbordoloi
     """
 
     # Class Variables [Directions]
@@ -39,15 +41,18 @@ class DirectoryPath:
         rootDirectoryDisplay = cls(root, parent, is_last)
         yield rootDirectoryDisplay
 
+
+        ## Taking out the List of Children [Nodes] Files/Directories
         children = sorted(list(entityPath for entityPath in root.iterdir()), key=lambda s: str(s).lower())
         
+        ## Checking for Hidden Entities Flag
         if not show_hidden:
             children = [entityPath for entityPath in children if not cls._hidden_files_filtering_(entityPath)]
         
         # Filter out entities (files and directories) specified in the ignore_list
         children = [
             entityPath for entityPath in children
-            if not any(ign == entityPath.name or ign == str(entityPath.relative_to(root)) for ign in ignore_list)
+            if not any(entity == entityPath.name or entity == str(entityPath.relative_to(root)) for entity in ignore_list)
         ]
 
         countNodes = 1
