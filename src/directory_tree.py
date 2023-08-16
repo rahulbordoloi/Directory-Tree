@@ -17,8 +17,7 @@ class DirectoryPath:
     display_Parent_Prefix_Last = '│   '
 
     # Constructor
-    def __init__(self, path=None, parent_path=None, is_last=0):
-
+    def __init__(self, path, parent_path=None, is_last=0):
         # Instance Variables [Status of Parent-Node Files]
         self.path = Path(path)
         self.parent = parent_path
@@ -37,36 +36,24 @@ class DirectoryPath:
 
     # Building the Tree [Directories-Nodes]
     @classmethod
-    def build_tree(cls, root, parent=None, is_last=False, max_depth=float("inf"), show_hidden=False, ignore_dirs=[]):
-
-        # Checking out for Root Directory for Each Iteration
+    def build_tree(cls, root, parent=None, is_last=False, max_depth=float("inf"), show_hidden=False, ignore_list=[]):
         root = Path(root)
-
-        # Yielding [Returning] Root Directory Name
         rootDirectoryDisplay = cls(root, parent, is_last)
         yield rootDirectoryDisplay
 
-        ## Taking out the List of Children [Nodes] Files/Directories
         children = sorted(list(entityPath for entityPath in root.iterdir()), key=lambda s: str(s).lower())
-
-        ## Checking for Hidden Entities Flag
         if not show_hidden:
             children = [entityPath for entityPath in children if not cls._hidden_files_filtering_(entityPath)]
 
-        # Filter out directories specified in the ignore_dirs list (support for directories starting with a dot)
-        children = [entityPath for entityPath in children if not any(ign in str(entityPath) for ign in ignore_dirs)]
+        # Filter out entities (files and directories) specified in the ignore_list
+        children = [entityPath for entityPath in children if not any(ign in str(entityPath) for ign in ignore_list)]
 
-        ## Build the Tree
         countNodes = 1
         for path in children:
             is_last = countNodes == len(children)
             if path.is_dir() and rootDirectoryDisplay.depth + 1 < max_depth:
-                yield from cls.build_tree(path,
-                                          parent=rootDirectoryDisplay,
-                                          is_last=is_last,
-                                          max_depth=max_depth,
-                                          show_hidden=show_hidden,
-                                          ignore_dirs=ignore_dirs)
+                yield from cls.build_tree(path, parent=rootDirectoryDisplay, is_last=is_last, max_depth=max_depth,
+                                          show_hidden=show_hidden, ignore_list=ignore_list)
             else:
                 yield cls(path, rootDirectoryDisplay, is_last)
             countNodes += 1
@@ -81,8 +68,7 @@ class DirectoryPath:
 
     # Displaying the Tree Path [Directories-Nodes]
     def displayPath(self):
-
-        ## Check for Parent Directory Name
+        # Check for Parent Directory Name
         if self.parent is None:
             return self.displayName
 
@@ -90,10 +76,10 @@ class DirectoryPath:
         filenamePrefix = (
             DirectoryPath.display_Node_Prefix_Last if self.is_last else DirectoryPath.display_Node_Prefix_Middle)
 
-        ## Adding Prefixes to Beautify Output [List]
+        # Adding Prefixes to Beautify Output [List]
         parts = [f'{filenamePrefix} {self.displayName}']
 
-        ## Adding Prefixes up for Parent-Node Directories
+        # Adding Prefixes up for Parent-Node Directories
         parent = self.parent
         while parent and parent.parent is not None:
             parts.append(
@@ -102,22 +88,20 @@ class DirectoryPath:
 
         return ''.join(reversed(parts))
 
-
 # Display Function to Print Directory Tree
 def display_tree(dir_path: str = '', string_rep: bool = False, header: bool = False, max_depth: float = float("inf"),
-                 show_hidden: bool = False, ignore_dirs: list = []):
+                 show_hidden: bool = False, ignore_list: list = []):
     """
     :param dir_path: Root Path of Operation. By Default, Refers to the Current Working Directory
     :param string_rep: Boolean Flag for Direct Console Output or a String Return of the Same. By Default, It Gives out Console Output
     :param header: Boolean Flag for Displaying [OS & Directory Path] Info in the Console. Not Applicable if `string_rep=True`
     :param max_depth: Max Depth of the Directory Tree. By Default, It goes upto the Deepest Directory/File
     :param show_hidden: Boolean Flag for Returning/Displaying Hidden Files/Directories if Value Set to `True`
-    :param ignore_dirs: List of directory names to ignore
+    :param ignore_list: List of file and directory names or patterns to ignore
     :return: None if `string_rep=False` else (str)ing Representation of the Tree
     """
 
     try:
-
         # Check for Default Argument
         if dir_path:
             dir_path = Path(dir_path)
@@ -125,11 +109,10 @@ def display_tree(dir_path: str = '', string_rep: bool = False, header: bool = Fa
             dir_path = Path(os.getcwd())
 
         # Build Directory Tree
-        paths = DirectoryPath.build_tree(dir_path, max_depth=max_depth, show_hidden=show_hidden, ignore_dirs=ignore_dirs)
+        paths = DirectoryPath.build_tree(dir_path, max_depth=max_depth, show_hidden=show_hidden, ignore_list=ignore_list)
 
         # Check for String Representation
         if string_rep:
-
             # String Representation
             stringOutput = str()
             for path in paths:
