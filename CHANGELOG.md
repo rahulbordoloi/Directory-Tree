@@ -23,3 +23,11 @@ Change Log
 -  Bug Fix Release Under Third
 *  Bug Fix for Hidden File Detection for Unix Based OSs
 *  Minor README Modifications
+
+0.0.4 (31/08/2023)
+-------------------
+-  Fourth Release
+*  Addition of New Parameter `ignore_list` to Ignore Files / Directories
+*  Type Hinting in Variables and Arguments and Method Return Types
+*  Minor Bug Fix for Displaying Hidden Directories / Files
+*  Minor README Modifications

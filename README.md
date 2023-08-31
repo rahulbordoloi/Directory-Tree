@@ -43,7 +43,7 @@ pip install -e .
 <h4> Function Signature </h4>
 
 ```python
-display_tree(dir_path: str = '', string_rep: bool = False, header: bool = False, max_depth: float = float("inf"), show_hidden: bool = False)
+display_tree(dir_path: str = '', string_rep: bool=False, header: bool=False, max_depth: float=float("inf"), show_hidden: bool=False, ignore_list: list=None)
 ```
 
 <h4> Arguments Description </h4>
@@ -54,7 +54,8 @@ display_tree(dir_path: str = '', string_rep: bool = False, header: bool = False,
 | __string_rep__ | Boolean Flag for Direct Console Output or a String Return of the Same. By Default, It Gives out Console Output. |
 | __header__ | Boolean Flag for Displaying [OS & Directory Path] Info in the Console. Not Applicable if `string_rep=True`.     |
 | __max_depth__ | Max Depth of the Directory Tree. By Default, It goes upto the Deepest Directory/File.                           |
-| __show_hidden__ | Boolean Flag for Returning/Displaying Hidden Files/Directories if Value Set to `True`.               |
+| __show_hidden__ | Boolean Flag for Returning/Displaying Hidden Files/Directories if Value Set to `True`.                          |
+| __ignore_list__ | List of File and Directory Names or Patterns to Ignore.                                                         |
 
 
 Run this Script in Order to Print out the Tree Structure of a User-Defined Directory `DirectoryPath`!
@@ -128,6 +129,5 @@ Name : __Rahul Bordoloi__ <br>
 Website : https://rahulbordoloi.me <br>
 Email : rahulbordoloi24@gmail.com <br>
 
-[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
-[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/rahulbordoloi/)
+Made with <span style="color: #e25555;">&#9829;</span> in Python!
 
