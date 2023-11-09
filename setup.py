@@ -16,7 +16,7 @@ setup(
     author_email = "rahulbordoloi24@gmail.com",
 
     py_modules = ['directory_tree'],
-    package_dir = {'': 'src'},
+    package_dir = {'': 'directory_tree'},
 
     classifiers = [
         "Programming Language :: Python :: 3.5",
