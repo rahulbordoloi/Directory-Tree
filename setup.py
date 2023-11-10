@@ -1,5 +1,5 @@
 # Importing Packages
-from setuptools import setup
+from setuptools import find_packages, setup
 
 # Reading README and Storing Info as `Long Description`
 with open("README.md", "r") as fh:
@@ -16,6 +16,11 @@ setup(
     author_email = "rahulbordoloi24@gmail.com",
 
     py_modules = ['directory_tree'],
+    entry_points={
+        'console_scripts': [
+            'directory_tree=directory_tree.directory_tree:main',
+            ]
+        },
     package_dir = {'': 'directory_tree'},
 
     classifiers = [

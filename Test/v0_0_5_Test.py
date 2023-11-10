@@ -1,5 +1,5 @@
 # Importing Module(s)
-from directory_tree import display_tree
+from directory_tree.directory_tree import display_tree
 
 
 # Main Method
