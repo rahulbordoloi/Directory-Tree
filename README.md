@@ -40,6 +40,20 @@ pip install -e .
 
 ## Usage
 
+<h4> Command Line </h4>
+Invoke from the command line with python:
+
+```
+# defaults work from the current directory, with infinite depth.
+$ python directory_tree
+```
+
+Use the inline help for command-line options:
+
+```
+$ python directory_tree --help
+```
+
 <h4> Function Signature </h4>
 
 ```python
