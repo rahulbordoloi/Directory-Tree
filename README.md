@@ -71,6 +71,18 @@ if __name__ == '__main__':
 
 *   Here by default, the `DirectoryPath` is the current working directory (CWD) unless specified by the user.
 
+```python
+
+# Importing Libraries
+from directory_tree_dir import DirectoryPathTree
+
+#  Main Method
+if __name__ == '__main__':
+    # For displaying only directory level info 
+    DirectoryPathTree().display_tree_directory(dir_path=DirectoryPath, exclude = [])
+
+```
+
 ## Output Examples
 
 Sample Directory Tree -
