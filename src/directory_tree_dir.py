@@ -21,7 +21,6 @@ class DirectoryPathTree:
             source = dir_path.split(DELEMETER)[-1]
             for root,dirs,files in os.walk(dir_path, topdown=True): 
                 dirs[:] = [include for include in dirs if include not in exclude]
-                print(root.split(DELEMETER)[-1])
                 self.tree_map_dir[root.split(DELEMETER)[-1]] = dirs
                 # self.tree_map_files[root.split(DELEMETER)[-1]] = files
 
