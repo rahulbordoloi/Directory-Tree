@@ -1,12 +1,13 @@
 # Importing Libraries
 from __future__ import annotations
+from fnmatch import fnmatch
 from os import stat
 from pathlib import Path
 from stat import FILE_ATTRIBUTE_HIDDEN
 from typing import List, Union
 
 
-# Class for Directory Tree Path
+# Class for Calculating Directory Tree Path
 class DirectoryPath:
     """
     Python Utility Package that Displays out the Tree Structure of a Particular Directory.
@@ -92,7 +93,9 @@ class DirectoryPath:
         # Filter out Entities (Files and Directories) Specified in the `ignore_list`
         children: List[Path] = [
             entityPath for entityPath in children
-            if not any(entity == entityPath.name or entity == str(entityPath.relative_to(root)) for entity in ignoreList)
+            if not any(
+                fnmatch(str(entityPath.relative_to(root)), entity) or fnmatch(entityPath.name, entity) for entity in ignoreList
+            )
         ]
 
         # Filtering out based on `onlyFiles` and `onlyDirectories` Flags
@@ -179,3 +182,4 @@ class DirectoryPath:
             parent: Path = parent.parent
 
         return ''.join(reversed(parts))
+

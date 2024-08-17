@@ -1,13 +1,13 @@
 # Importing Module(s)
-from src.directory_tree import display_tree
+from directory_tree.tree_driver import display_tree
 
 
 # Main Method
 if __name__ == '__main__':
 
     # 1. Test for String Representation
-    stringRepresentation = display_tree(string_rep=True, sort_by=2)
-    print(stringRepresentation)
+    # stringRepresentation = display_tree(string_rep=True, sort_by=2)
+    # print(stringRepresentation)
     #
     # # 2. Test for Header in String Representation
     # stringRepresentation = display_tree(string_rep=True, header=True)
@@ -26,4 +26,4 @@ if __name__ == '__main__':
     # display_tree(max_depth=4, show_hidden=True, ignore_list=['Directory A', 'letseee.txt'])
     #
     # # 7. Test for Ignore Files / Directories [Absolute Names]
-    # display_tree(max_depth=4, show_hidden=True, ignore_list=["*.py"])
+    display_tree(max_depth=4, show_hidden=True, ignore_list=["*.py"])

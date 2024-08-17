@@ -1,5 +1,5 @@
-import argparse
+# Importing Necessary Modules
+from directory_tree.tree_cli import directoryTreeCli
 
-from directory_tree import main
-
-main()
+# Invoking Directory Tree CLI Function
+directoryTreeCli()
