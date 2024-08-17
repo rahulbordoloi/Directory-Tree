@@ -1,5 +1,5 @@
 # Importing Libraries
-import argparse
+from argparse import ArgumentParser
 from os import getcwd
 from pathlib import Path
 from platform import system
@@ -77,8 +77,14 @@ $ Path : {Path(dir_path)}
     except Exception as expMessage:
         print(f'Exception Occurred! Failed to Generate Tree:: {type(expMessage).__name__}: {expMessage}')
 
-def main():
-    parser = argparse.ArgumentParser(
+
+# Main Function for Arguments Supports
+def main() -> None:
+    """
+    Main Function for Argument Parsing and Execution
+    """
+
+    parser = ArgumentParser(
         prog='directory_tree',
         description='Python implementation of basic elements of `tree`',
         epilog=("""
@@ -106,3 +112,4 @@ have sudo privileges for `sudo apt install tree`.
         ignore_list=args.ignore_list,
         show_hidden=args.show_hidden,
     )
+
