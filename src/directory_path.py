@@ -3,7 +3,7 @@ from __future__ import annotations
 from os import stat
 from pathlib import Path
 from stat import FILE_ATTRIBUTE_HIDDEN
-from typing import Any, Dict, List, Union
+from typing import List, Union
 
 
 # Class for Directory Tree Path
@@ -38,6 +38,9 @@ class DirectoryPath:
     # Displaying Names of the Nodes [Parents / Inner Directories]
     @property
     def displayName(self) -> str:
+        """
+        Method to Display the Name of the Nodes [Parents / Inner Directories]
+        """
 
         if self.path.is_dir():
             return self.path.name + '/'
@@ -45,9 +48,22 @@ class DirectoryPath:
 
     # Building the Tree [Directories - Nodes]
     @classmethod
-    def buildTree(cls, root: Path, parent: Union[DirectoryPath, None]=None, isLast: bool=False, 
+    def buildTree(cls, root: Path, parent: Union[DirectoryPath, None]=None, isLast: bool=False,
                   maxDepth: float=float('inf'), showHidden: bool=False, ignoreList: List[str]=None,
-                  onlyFiles: bool=False, onlyDirs: bool=False) -> str:
+                  onlyFiles: bool=False, onlyDirs: bool=False, sortBy: int=0) -> str:
+        """
+        Method to Build the Tree Structure of the Directory
+        :param root: Root Path of the Directory
+        :param parent: Parent Directory Path
+        :param isLast: Boolean Flag for Last Node
+        :param maxDepth: Max Depth of the Tree
+        :param showHidden: Boolean Flag for Displaying Hidden Files/Directories
+        :param ignoreList: List of Files/Directories to Ignore
+        :param onlyFiles: Boolean Flag for Displaying Only Files
+        :param onlyDirs: Boolean Flag for Displaying Only Directories
+        :param sortBy: Sorting Order of the Files / Directory
+        :return: String Representation of the Tree
+        """
 
         # Resolving `Ignore List`
         if not ignoreList:
@@ -89,6 +105,14 @@ class DirectoryPath:
                 entityPath for entityPath in children if entityPath.is_dir()
             ]
 
+        # Sorting based on `sortBy` Flag [ 1 - Files First, 2 - Directories First ]
+        if sortBy == 1:
+            children.sort(key=lambda s: (s.is_dir(), str(s).lower()))
+        elif sortBy == 2:
+            children.sort(key=lambda s: (not s.is_dir(), str(s).lower()))
+        else:
+            children.sort(key=lambda s: str(s).lower())
+
         countNodes: int = 1
         for path in children:
             isLast: bool = countNodes == len(children)
@@ -101,7 +125,8 @@ class DirectoryPath:
                     showHidden=showHidden,
                     ignoreList=ignoreList,
                     onlyFiles=onlyFiles,
-                    onlyDirs=onlyDirs
+                    onlyDirs=onlyDirs,
+                    sortBy=sortBy
                 )
             else:
                 yield cls(
@@ -114,14 +139,22 @@ class DirectoryPath:
     # Check Condition for Hidden Entities [Files / Directories]
     @classmethod
     def _hiddenFilesFiltering_(cls, path: Path) -> bool:
+        """
+        Method to Check for Hidden Files / Directories
+        :param path: Path of the File / Directory
+        """
 
         try:
             return bool(stat(path).st_file_attributes & FILE_ATTRIBUTE_HIDDEN) or path.stem.startswith('.')
-        except:
+        except (OSError, AttributeError):
             return path.stem.startswith('.')
 
     # Displaying the Tree Path [Directories-Nodes]
     def displayPath(self) -> str:
+        """
+        Method to Display the Path of the Tree [Directories-Nodes]
+        :return: String Representation of the Path
+        """
 
         # Check for Parent Directory Name
         if self.parent is None:
@@ -141,7 +174,6 @@ class DirectoryPath:
             parts.append(
                 DirectoryPath.displayParentPrefixMiddle if parent.isLast else DirectoryPath.displayParentPrefixLast
             )
-            parent: str = parent.parent
+            parent: Path = parent.parent
 
         return ''.join(reversed(parts))
-
