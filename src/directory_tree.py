@@ -13,7 +13,9 @@ def display_tree(
         header: bool=False,
         max_depth: float=float('inf'),
         show_hidden: bool=False,
-        ignore_list: List[str]=None
+        ignore_list: List[str]=None,
+        only_files: bool=False,
+        only_dirs: bool=False
 ) -> Union[str, None]:
 
     """
@@ -23,6 +25,8 @@ def display_tree(
     :param max_depth: Max Depth of the Directory Tree. By Default, It goes upto the Deepest Directory/File
     :param show_hidden: Boolean Flag for Returning/Displaying Hidden Files/Directories if Value Set to `True`
     :param ignore_list: List of File and Directory Names or Patterns to Ignore
+    :param only_files: Boolean Flag to Display Only Files
+    :param only_dirs: Boolean Flag to Display Only Directories
     :return: None if `string_rep=False` else (str)ing Representation of the Tree
     """
 
@@ -39,7 +43,9 @@ def display_tree(
             root=dir_path,
             maxDepth=max_depth,
             showHidden=show_hidden,
-            ignoreList=ignore_list
+            ignoreList=ignore_list,
+            onlyFiles=only_files,
+            onlyDirs=only_dirs
         )
 
         # Check for String Representation

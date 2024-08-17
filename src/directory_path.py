@@ -3,7 +3,7 @@ from __future__ import annotations
 from os import stat
 from pathlib import Path
 from stat import FILE_ATTRIBUTE_HIDDEN
-from typing import List, Union
+from typing import Any, Dict, List, Union
 
 
 # Class for Directory Tree Path
@@ -46,7 +46,8 @@ class DirectoryPath:
     # Building the Tree [Directories - Nodes]
     @classmethod
     def buildTree(cls, root: Path, parent: Union[DirectoryPath, None]=None, isLast: bool=False, 
-                  maxDepth: float=float('inf'), showHidden: bool=False, ignoreList: List[str]=None) -> str:
+                  maxDepth: float=float('inf'), showHidden: bool=False, ignoreList: List[str]=None,
+                  onlyFiles: bool=False, onlyDirs: bool=False) -> str:
 
         # Resolving `Ignore List`
         if not ignoreList:
@@ -78,6 +79,16 @@ class DirectoryPath:
             if not any(entity == entityPath.name or entity == str(entityPath.relative_to(root)) for entity in ignoreList)
         ]
 
+        # Filtering out based on `onlyFiles` and `onlyDirs` Flags
+        if onlyFiles:
+            children: List[Path] = [
+                entityPath for entityPath in children if entityPath.is_file()
+            ]
+        elif onlyDirs:
+            children: List[Path] = [
+                entityPath for entityPath in children if entityPath.is_dir()
+            ]
+
         countNodes: int = 1
         for path in children:
             isLast: bool = countNodes == len(children)
@@ -88,7 +99,9 @@ class DirectoryPath:
                     isLast=isLast,
                     maxDepth=maxDepth,
                     showHidden=showHidden,
-                    ignoreList=ignoreList
+                    ignoreList=ignoreList,
+                    onlyFiles=onlyFiles,
+                    onlyDirs=onlyDirs
                 )
             else:
                 yield cls(
@@ -131,3 +144,4 @@ class DirectoryPath:
             parent: str = parent.parent
 
         return ''.join(reversed(parts))
+
