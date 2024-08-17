@@ -15,7 +15,8 @@ def display_tree(
         show_hidden: bool=False,
         ignore_list: List[str]=None,
         only_files: bool=False,
-        only_dirs: bool=False
+        only_dirs: bool=False,
+        sort_by: int=0
 ) -> Union[str, None]:
 
     """
@@ -27,6 +28,7 @@ def display_tree(
     :param ignore_list: List of File and Directory Names or Patterns to Ignore
     :param only_files: Boolean Flag to Display Only Files
     :param only_dirs: Boolean Flag to Display Only Directories
+    :param sort_by: Sorting order. Possible Options: 0 - Default, 1 - Files First, 2 - Directories First
     :return: None if `string_rep=False` else (str)ing Representation of the Tree
     """
 
@@ -45,7 +47,8 @@ def display_tree(
             showHidden=show_hidden,
             ignoreList=ignore_list,
             onlyFiles=only_files,
-            onlyDirs=only_dirs
+            onlyDirs=only_dirs,
+            sortBy=sort_by
         )
 
         # Check for String Representation
@@ -72,4 +75,3 @@ $ Path : {Path(dir_path)}
 
     except Exception as expMessage:
         print(f'Exception Occurred! Failed to Generate Tree:: {type(expMessage).__name__}: {expMessage}')
-
