@@ -10,7 +10,7 @@
 
 ## About 
 
-Want to Display your Project/Current Working Directory as a Neat Tree? No Worries!
+Want to Display your Project / Current Working Directory as a Neat Tree? No Worries!
 
 `Directory Tree` is a simple python utility package that displays out the Tree Structure of a User Defined Directory.
 
@@ -43,7 +43,17 @@ pip install -e .
 <h4> Function Signature </h4>
 
 ```python
-display_tree(dir_path: str = '', string_rep: bool=False, header: bool=False, max_depth: float=float("inf"), show_hidden: bool=False, ignore_list: list=None)
+display_tree(
+    dir_path: str='', 
+    string_rep: bool=False, 
+    header: bool=False, 
+    max_depth: float=float('inf'), 
+    show_hidden: bool=False, 
+    ignore_list: List[str]=None, 
+    only_files: bool=False, 
+    only_dirs: bool=False, 
+    sort_by: int=0
+)
 ```
 
 <h4> Arguments Description </h4>
@@ -56,6 +66,9 @@ display_tree(dir_path: str = '', string_rep: bool=False, header: bool=False, max
 | __max_depth__ | Max Depth of the Directory Tree. By Default, It goes upto the Deepest Directory/File.                           |
 | __show_hidden__ | Boolean Flag for Returning/Displaying Hidden Files/Directories if Value Set to `True`.                          |
 | __ignore_list__ | List of File and Directory Names or Patterns to Ignore.                                                         |
+| __only_files__ | Boolean Flag to Display Only Files                                                                              |
+| __only_dirs__ | Boolean Flag to Display Only Directories                                                                        |
+| __sort_by__ | Sorting order. Possible Options: 0 - Default, 1 - Files First, 2 - Directories First                            |
 
 
 Run this Script in Order to Print out the Tree Structure of a User-Defined Directory `DirectoryPath`!
@@ -66,10 +79,10 @@ from directory_tree import display_tree
 
 # Main Method
 if __name__ == '__main__':
-    display_tree(DirectoryPath)
+    display_tree(directoryPath)
 ```
 
-*   Here by default, the `DirectoryPath` is the current working directory (CWD) unless specified by the user.
+*   Here by default, the `directoryPath` is the current working directory (CWD) unless specified by the user.
 
 ## Output Examples
 
@@ -130,4 +143,3 @@ Website : https://rahulbordoloi.me <br>
 Email : rahulbordoloi24@gmail.com <br>
 
 Made with <span style="color: #e25555;">&#9829;</span> in Python!
-
