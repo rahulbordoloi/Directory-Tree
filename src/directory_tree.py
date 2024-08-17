@@ -47,7 +47,7 @@ def display_tree(
             showHidden=show_hidden,
             ignoreList=ignore_list,
             onlyFiles=only_files,
-            onlyDirs=only_dirs,
+            onlyDirectories=only_dirs,
             sortBy=sort_by
         )
 

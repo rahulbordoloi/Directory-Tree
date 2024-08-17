@@ -50,7 +50,7 @@ class DirectoryPath:
     @classmethod
     def buildTree(cls, root: Path, parent: Union[DirectoryPath, None]=None, isLast: bool=False,
                   maxDepth: float=float('inf'), showHidden: bool=False, ignoreList: List[str]=None,
-                  onlyFiles: bool=False, onlyDirs: bool=False, sortBy: int=0) -> str:
+                  onlyFiles: bool=False, onlyDirectories: bool=False, sortBy: int=0) -> str:
         """
         Method to Build the Tree Structure of the Directory
         :param root: Root Path of the Directory
@@ -60,7 +60,7 @@ class DirectoryPath:
         :param showHidden: Boolean Flag for Displaying Hidden Files/Directories
         :param ignoreList: List of Files/Directories to Ignore
         :param onlyFiles: Boolean Flag for Displaying Only Files
-        :param onlyDirs: Boolean Flag for Displaying Only Directories
+        :param onlyDirectories: Boolean Flag for Displaying Only Directories
         :param sortBy: Sorting Order of the Files / Directory
         :return: String Representation of the Tree
         """
@@ -95,15 +95,17 @@ class DirectoryPath:
             if not any(entity == entityPath.name or entity == str(entityPath.relative_to(root)) for entity in ignoreList)
         ]
 
-        # Filtering out based on `onlyFiles` and `onlyDirs` Flags
+        # Filtering out based on `onlyFiles` and `onlyDirectories` Flags
         if onlyFiles:
             children: List[Path] = [
                 entityPath for entityPath in children if entityPath.is_file()
             ]
-        elif onlyDirs:
+        elif onlyDirectories:
             children: List[Path] = [
                 entityPath for entityPath in children if entityPath.is_dir()
             ]
+        if onlyFiles and onlyDirectories:
+            raise AttributeError('Only One of `onlyFiles` and `onlyDirectories` Flags can be Set to `True`')
 
         # Sorting based on `sortBy` Flag [ 1 - Files First, 2 - Directories First ]
         if sortBy == 1:
@@ -125,7 +127,7 @@ class DirectoryPath:
                     showHidden=showHidden,
                     ignoreList=ignoreList,
                     onlyFiles=onlyFiles,
-                    onlyDirs=onlyDirs,
+                    onlyDirectories=onlyDirectories,
                     sortBy=sortBy
                 )
             else:
