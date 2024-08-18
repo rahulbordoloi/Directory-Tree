@@ -1,5 +1,6 @@
 # Importing Packages
-from setuptools import setup
+from setuptools import find_packages, setup
+from directory_tree.version import __version__
 
 # Reading README and Storing Info as `Long Description`
 with open('README.md', 'r') as fh:
@@ -10,20 +11,20 @@ setup(
 
     # Package and Author Information
     name='directory_tree',
-    version='0.0.5',
+    version=__version__,
     description='Utility Package that Displays out the Tree Structure of a Particular Directory.',
     url='https://github.com/rahulbordoloi/Directory-Tree/',
     author='Rahul Bordoloi',
     author_email='rahulbordoloi24@gmail.com',
 
     # Package Information
-    py_modules=['directory_tree'],
+    packages=find_packages(),
     entry_points={
         'console_scripts': [
             'directory_tree=directory_tree.__main__:directoryTreeCli',
         ]
     },
-    package_dir={'': 'directory_tree'},
+    package_dir={'directory_tree': 'directory_tree'},
 
     # Package Dependencies
     classifiers=[
@@ -56,4 +57,3 @@ setup(
         ],
     }
 )
-

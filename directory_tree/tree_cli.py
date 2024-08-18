@@ -1,6 +1,7 @@
 # Importing Necessary Libraries & Modules
 from argparse import ArgumentParser
-from directory_tree.tree_driver import display_tree
+from directory_tree.tree_driver import DisplayTree
+from .version import __version__
 
 
 # CLI Function for Arguments Support for Directory Tree
@@ -21,12 +22,19 @@ Also acts as a minimal implementation of `tree` for those who can pip install bu
 
     # -------------------------------- Arguments -------------------------------- #
 
+    parser.add_argument(
+        '--version',
+        '-v',
+        action='store_true',
+        help='Shows the version of the `directory_tree` package'
+    )
+
     # `directory` Argument
     parser.add_argument(
         'directory',
         nargs='?',
-        default='.',
-        help='Root Path to Display. Uses current directory by default'
+        default=None,
+        help='Root Path to Display. Uses Current Directory by Default'
     )
 
     # `header` Argument
@@ -95,21 +103,45 @@ Also acts as a minimal implementation of `tree` for those who can pip install bu
         nargs='?',
         required=False,
         type=int,
-        help='Sorting Order. Possible Options: 0 - Default, 1 - Files First, 2 - Directories First'
+        help='Sorting Order. Possible Options: [0 - Default, 1 - Files First, 2 - Directories First]'
+    )
+
+    # `raise-exception` Argument
+    parser.add_argument(
+        '--raise-exception',
+        action='store_true',
+        default=False,
+        required=False,
+        help='Raise Exception if Any Error Occurs'
+    )
+
+    # `print-error-traceback` Argument
+    parser.add_argument(
+        '--print-error-traceback',
+        action='store_true',
+        default=False,
+        required=False,
+        help='Print Error Traceback if Any Error Occurs'
     )
 
     # -------------------------------- Parsing Arguments -------------------------------- #
     arguments: ArgumentParser.parse_args = parser.parse_args()
 
-    # Displaying Directory Tree
-    display_tree(
-        dir_path=arguments.directory,
-        header=arguments.header,
-        max_depth=arguments.max_depth,
-        ignore_list=arguments.ignore_list,
-        show_hidden=arguments.show_hidden,
-        only_files=arguments.only_files,
-        only_dirs=arguments.only_dirs,
-        sort_by=arguments.sort_by
-    )
+    # Displaying Version if Present
+    if arguments.version:
+        print(f'`directory_tree` Version: {__version__}')
+        return
 
+    # Displaying Directory Tree
+    DisplayTree.display(
+        dirPath=arguments.directory,
+        header=arguments.header,
+        maxDepth=arguments.max_depth,
+        ignoreList=arguments.ignore_list,
+        showHidden=arguments.show_hidden,
+        onlyFiles=arguments.only_files,
+        onlyDirs=arguments.only_dirs,
+        sortBy=arguments.sort_by,
+        raiseException=arguments.raise_exception,
+        printErrorTraceback=arguments.print_error_traceback
+    )
