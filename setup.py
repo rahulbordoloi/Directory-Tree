@@ -1,17 +1,22 @@
 # Importing Packages
+from importlib.util import module_from_spec, spec_from_file_location
 from setuptools import find_packages, setup
-from directory_tree.version import __version__
 
-# Reading README and Storing Info as `Long Description`
+# Reading `README` and Storing Info as `Long Description`
 with open('README.md', 'r') as fh:
     longDescription: str = fh.read()
+
+# Reading `version` from `version.py` without Importing [as it causes circular imports]
+specs: spec_from_file_location = spec_from_file_location(name='version', location='directory_tree/version.py')
+versionModule: module_from_spec = module_from_spec(spec=specs)
+specs.loader.exec_module(module=versionModule)
 
 # Configuring Setup
 setup(
 
     # Package and Author Information
     name='directory_tree',
-    version=__version__,
+    version=versionModule.__version__,
     description='Utility Package that Displays out the Tree Structure of a Particular Directory.',
     url='https://github.com/rahulbordoloi/Directory-Tree/',
     author='Rahul Bordoloi',
@@ -24,6 +29,7 @@ setup(
             'directory_tree=directory_tree.__main__:directoryTreeCli',
         ]
     },
+    py_modules=['directory_tree'],
     package_dir={'directory_tree': 'directory_tree'},
 
     # Package Dependencies
