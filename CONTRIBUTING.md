@@ -39,11 +39,7 @@ git push origin feature/your-feature-name
 
 Ensure that your changes do not break existing tests and add new tests if necessary.
 
-1. **Run Tests**: Use the following command to run tests.
-```bash
-python -m unittest discover -s tests
-```
-2. **Add Tests**: Add new tests in the `tests` directory.
+1. **Add Tests**: Add new tests in the `Tests` directory.
 
 ## Issue Reporting
 
