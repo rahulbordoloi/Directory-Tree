@@ -24,7 +24,8 @@ class DisplayTree:
             onlyDirs: bool=False,
             sortBy: int=0,
             raiseException: bool=False,
-            printErrorTraceback: bool=False
+            printErrorTraceback: bool=False,
+            spacing: bool=False
     ) -> None:
         """
         :param dirPath: Root Path of Operation. By Default, Refers to the Current Working Directory
@@ -38,6 +39,7 @@ class DisplayTree:
         :param sortBy: Sorting order. Possible Options: [0 - Default, 1 - Files First, 2 - Directories First]
         :param raiseException: Boolean Flag to Raise Exception. By Default, It Doesn't Raise Exception
         :param printErrorTraceback: Boolean Flag to Print Error Traceback. By Default, It Doesn't Print Error Traceback
+        :param spacing: Boolean Flag to Add a Separator Line (`│`) Before Every Directory. By Default, It Doesn't Add Any
         :return: None if `string_rep=False` else (str)ing Representation of the Tree
         """
 
@@ -53,12 +55,28 @@ class DisplayTree:
         self.sortBy: int = sortBy
         self.raiseException: bool = raiseException
         self.printErrorTraceback: bool = printErrorTraceback
+        self.spacing: bool = spacing
 
     # Destructor
     def __del__(self):
 
         del self.dirPath, self.stringRep, self.header, self.maxDepth, self.showHidden, self.ignoreList, \
-            self.onlyFiles, self.onlyDirs, self.sortBy, self.raiseException, self.printErrorTraceback
+            self.onlyFiles, self.onlyDirs, self.sortBy, self.raiseException, self.printErrorTraceback, \
+            self.spacing
+
+    # Generating Output Lines [With Optional Separator Lines]
+    def _generateLines(self, paths):
+        lastAtDepth = {}
+        for path in paths:
+            if self.spacing and path.parent is not None:
+                previous = lastAtDepth.get(path.depth)
+                afterDirectory = (
+                    previous is not None and previous.parent is path.parent and previous.path.is_dir()
+                )
+                if path.path.is_dir() or afterDirectory:
+                    yield path.displaySpacer()
+                lastAtDepth[path.depth] = path
+            yield path.displayPath()
 
     # Display Function to Print Directory Tree
     @classmethod
@@ -97,10 +115,7 @@ class DisplayTree:
             if self.stringRep:
 
                 # String Representation
-                stringOutput: str = str()
-                for path in paths:
-                    stringOutput += path.displayPath() + '\n'
-                return stringOutput
+                return ''.join(line + '\n' for line in self._generateLines(paths))
 
             else:
                 # Just Console Print
@@ -112,8 +127,8 @@ $ Path : {Path(self.dirPath)}
 {'*' * 15} Directory Tree {'*' * 15}
 ''')
 
-                for path in paths:
-                    print(path.displayPath())
+                for line in self._generateLines(paths):
+                    print(line)
 
         except Exception as expMessage:
 

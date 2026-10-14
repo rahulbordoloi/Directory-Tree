@@ -20,7 +20,8 @@ def display_tree(
         only_dirs: bool=False,
         sort_by: int=0,
         raise_exception: bool=False,
-        print_error_traceback: bool=False
+        print_error_traceback: bool=False,
+        spacing: bool=False
 ) -> Union[str, None]:
 
     warn(
@@ -41,5 +42,6 @@ def display_tree(
         onlyDirs=only_dirs,
         sortBy=sort_by,
         raiseException=raise_exception,
-        printErrorTraceback=print_error_traceback
+        printErrorTraceback=print_error_traceback,
+        spacing=spacing
     )

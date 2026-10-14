@@ -183,3 +183,22 @@ class DirectoryPath:
 
         return ''.join(reversed(parts))
 
+    # Blank Spacer Line Shown Before a Directory Node [Visual Separation]
+    def displaySpacer(self) -> str:
+        """
+        Method to Build the Separator Line Placed Before a Directory Node
+        :return: String Representation of the Separator Line
+        """
+
+        # Node's Own Column Comes Last After Reversing, So It Is Added First
+        parts: List[str] = ['│' if self.parent is not None else '']
+
+        # Adding Prefixes up for Parent-Node Directories
+        parent: DirectoryPath = self.parent
+        while parent and parent.parent is not None:
+            parts.append(
+                DirectoryPath.displayParentPrefixMiddle if parent.isLast else DirectoryPath.displayParentPrefixLast
+            )
+            parent = parent.parent
+
+        return ''.join(reversed(parts)).rstrip()
